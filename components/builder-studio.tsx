@@ -247,7 +247,7 @@ export function BuilderStudio({ userId, email }: { userId: string; email: string
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(239,136,173,.14),transparent_30%)]">
       <header className="sticky top-0 z-50 border-b bg-background/80 px-4 py-3 backdrop-blur-xl sm:px-7">
         <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2"><Image src="/logo.png" alt="Creto" width={38} height={38} /><b className="font-serif text-2xl">Creto</b><span className="hidden text-xs text-muted-foreground sm:inline">Studio</span></Link>
+          <Link href="/" className="flex items-center gap-2"><Image src="/logo-circle.png" alt="Creto" width={38} height={38} className="rounded-full" /><b className="font-serif text-2xl">Creto</b><span className="hidden text-xs text-muted-foreground sm:inline">Studio</span></Link>
           <div className="flex items-center gap-1 rounded-full border bg-card p-1">
             <button onClick={() => setTab('setup')} className={`rounded-full px-3 py-2 text-xs font-bold sm:px-5 ${tab === 'setup' ? 'bg-[#670D2F] text-white' : 'text-muted-foreground'}`}><GearSix className="mr-1 inline" /> Setup</button>
             <button onClick={() => setTab('profile')} className={`rounded-full px-3 py-2 text-xs font-bold sm:px-5 ${tab === 'profile' ? 'bg-[#670D2F] text-white' : 'text-muted-foreground'}`}><UserCircle className="mr-1 inline" /> Profile</button>

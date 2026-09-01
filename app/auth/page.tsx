@@ -12,7 +12,7 @@ export default function AuthPage() {
       <section className="relative hidden overflow-hidden bg-[#3A0519] p-12 text-white lg:flex lg:flex-col">
         <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(circle at 15% 20%,#EF88AD 0,transparent 24%),radial-gradient(circle at 85% 78%,#A53860 0,transparent 30%)' }} />
         <div className="hero-grid absolute inset-0 opacity-20" />
-        <Link href="/" className="relative z-10 flex items-center gap-3 font-serif text-3xl font-bold"><Image src="/logo.png" alt="Creto" width={44} height={44} /> Creto</Link>
+        <Link href="/" className="relative z-10 flex items-center gap-3 font-serif text-3xl font-bold"><Image src="/logo-circle.png" alt="Creto" width={44} height={44} className="rounded-full" /> Creto</Link>
         <div className="relative z-10 my-auto max-w-lg">
           <div className="mb-7 flex size-14 items-center justify-center rounded-2xl border border-white/15 bg-white/10"><QrCode size={28} weight="bold" /></div>
           <h1 className="font-serif text-6xl font-semibold leading-[.9] tracking-tight">Make every introduction unforgettable.</h1>

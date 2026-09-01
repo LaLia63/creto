@@ -43,7 +43,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
         <span className="flex items-center gap-2 text-xs text-[#670D2F]/65 dark:text-[#EF88AD]/70"><ShareNetwork /> Share this profile</span>
       </header>
       <div className="relative z-10 mx-auto max-w-lg"><CardPreview profile={result.profile} links={result.links} interactive /></div>
-      <footer className="relative z-10 mx-auto mt-7 flex max-w-lg items-center justify-center gap-2 text-xs text-[#670D2F]/60 dark:text-[#EF88AD]/60"><Image src="/logo.png" alt="" width={24} height={24} /> Made memorable with <Link href="/" className="font-bold">Creto</Link></footer>
+      <footer className="relative z-10 mx-auto mt-7 flex max-w-lg items-center justify-center gap-2 text-xs text-[#670D2F]/60 dark:text-[#EF88AD]/60"><Image src="/logo-circle.png" alt="" width={24} height={24} className="rounded-full" /> Made memorable with <Link href="/" className="font-bold">Creto</Link></footer>
     </main>
   );
 }

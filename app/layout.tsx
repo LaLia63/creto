@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: { default: 'Creto — Everything You Are, All in One Place', template: '%s · Creto' },
   description: 'Create a beautiful digital business card, collect your links, and share your story with one memorable QR code.',
-  icons: { icon: '/favicon.ico' },
+  icons: { icon: '/icon.png', apple: '/apple-icon.png' },
   openGraph: {
     title: 'Creto — Everything You Are, All in One Place',
     description: 'A modern digital business card and link profile for people who make things happen.',

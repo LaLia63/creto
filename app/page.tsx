@@ -69,25 +69,25 @@ export default function HomePage() {
             <div className="mock-browser">
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                 <div className="flex gap-1.5" aria-hidden="true"><i /><i /><i /></div>
-                <div className="rounded-full bg-white/8 px-4 py-1.5 text-[11px] text-white/60">creto.app/u/maya</div>
+                <div className="rounded-full bg-white/8 px-4 py-1.5 text-[11px] text-white/60">creto.app/u/lia</div>
                 <QrCode className="text-[#EF88AD]" />
               </div>
               <div className="p-4 sm:p-7">
                 <div className="profile-card-demo">
                   <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-br from-[#A53860] via-[#670D2F] to-[#3A0519]" />
                   <div className="relative z-10 flex flex-col items-center px-7 pb-7 pt-16 text-center">
-                    <div className="relative h-24 w-24 overflow-hidden rounded-[2rem] border-4 border-[#f8e9ee] bg-[#EF88AD] shadow-xl">
-                      <Image src="/hsu-yati-zaw.webp" alt="Creto profile example" fill className="object-cover" sizes="96px" priority />
+                    <div className="grid h-24 w-24 place-items-center rounded-full border-4 border-[#f8e9ee] bg-gradient-to-br from-[#EF88AD] via-[#A53860] to-[#670D2F] shadow-xl" aria-hidden="true">
+                      <span className="font-serif text-5xl font-bold text-white">L</span>
                     </div>
-                    <span className="mt-5 rounded-full bg-[#A53860]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[.18em] text-[#A53860]">Creative Director</span>
-                    <h2 className="mt-3 font-serif text-3xl font-semibold text-[#3A0519]">Maya Bennett</h2>
-                    <p className="mt-2 max-w-xs text-sm leading-6 text-[#670D2F]/70">Crafting thoughtful brands, vivid stories, and digital experiences with soul.</p>
+                    <span className="mt-5 rounded-full bg-[#A53860]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[.18em] text-[#A53860]">Full-Stack Developer</span>
+                    <h2 className="mt-3 font-serif text-3xl font-semibold text-[#3A0519]">Lia</h2>
+                    <p className="mt-2 max-w-xs text-sm leading-6 text-[#670D2F]/70">Developer by passion • UI/UX designer at heart • Forever learning &amp; creating.</p>
                     <div className="mt-6 flex gap-3">
                       {[InstagramLogo, LinkedinLogo, GithubLogo].map((Icon, index) => (
                         <span key={index} className="grid size-11 place-items-center rounded-2xl border border-[#A53860]/15 bg-white text-[#670D2F] shadow-sm"><Icon size={20} weight="fill" /></span>
                       ))}
                     </div>
-                    <button className="mt-6 w-full rounded-2xl bg-[#3A0519] py-3.5 text-sm font-semibold text-white">Connect with Maya</button>
+                    <button className="mt-6 w-full rounded-2xl bg-[#3A0519] py-3.5 text-sm font-semibold text-white">Connect with Lia</button>
                   </div>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export default function HomePage() {
 
       <section className="px-5 pb-28 sm:px-8 lg:px-12"><div className="mx-auto max-w-7xl overflow-hidden rounded-[2.8rem] bg-gradient-to-br from-[#3A0519] via-[#670D2F] to-[#A53860] px-6 py-20 text-center text-white shadow-[0_40px_120px_rgba(58,5,25,.25)] sm:px-12"><PaperPlaneTilt className="mx-auto text-[#EF88AD]" size={38} weight="duotone" /><h2 className="mx-auto mt-6 max-w-4xl font-serif text-[clamp(3.5rem,8vw,7.5rem)] font-bold leading-[.82] tracking-[-.05em]">Create Your Link Page Now.</h2><p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/65">Bring your work, identity, and ways to connect into one unforgettable place. (သင့်အလုပ်၊ ကိုယ်ပိုင် identity နဲ့ ဆက်သွယ်ရန်နည်းလမ်းတွေကို မှတ်မိလွယ်တဲ့ နေရာတစ်ခုထဲ စုစည်းပါ)</p><Link href="/auth" className="mt-8 inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#EF88AD] px-6 text-sm font-black text-[#3A0519] transition hover:-translate-y-1">Create your profile <ArrowUpRight /></Link></div></section>
 
-      <footer className="border-t bg-card px-5 py-12 sm:px-8 lg:px-12"><div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_.7fr_.7fr]"><div><Link href="/" className="flex items-center gap-3"><Image src="/logo.png" alt="Creto" width={48} height={48}/><span className="font-serif text-3xl font-bold">Creto</span></Link><p className="mt-4 max-w-md text-sm leading-7 text-muted-foreground">A modern digital business card for every link, every introduction, and every next opportunity. (Link၊ မိတ်ဆက်မှုနဲ့ အခွင့်အလမ်းတိုင်းအတွက် ခေတ်မီ digital business card)</p></div><div><p className="text-xs font-black uppercase tracking-widest text-[#A53860]">Explore</p><div className="mt-4 grid gap-3 text-sm"><Link href="/creator">Creator</Link><Link href="/auth">Sign in</Link><a href="https://github.com/LaLia63" target="_blank" rel="noreferrer">GitHub</a></div></div><div><p className="text-xs font-black uppercase tracking-widest text-[#A53860]">Start</p><div className="mt-4 grid gap-3 text-sm"><Link href="/auth">Create profile</Link><a href="#how-it-works">How it works</a></div></div></div><div className="mx-auto mt-10 flex max-w-7xl flex-col gap-2 border-t pt-6 text-xs text-muted-foreground sm:flex-row sm:justify-between"><span>© 2026 Creto. All rights reserved.</span><span>Made with care by Hsu Yati Zaw.</span></div></footer>
+      <footer className="border-t bg-card px-5 py-12 sm:px-8 lg:px-12"><div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_.7fr_.7fr]"><div><Link href="/" className="flex items-center gap-3"><Image src="/logo-circle.png" alt="Creto" width={48} height={48} className="rounded-full"/><span className="font-serif text-3xl font-bold">Creto</span></Link><p className="mt-4 max-w-md text-sm leading-7 text-muted-foreground">A modern digital business card for every link, every introduction, and every next opportunity. (Link၊ မိတ်ဆက်မှုနဲ့ အခွင့်အလမ်းတိုင်းအတွက် ခေတ်မီ digital business card)</p></div><div><p className="text-xs font-black uppercase tracking-widest text-[#A53860]">Explore</p><div className="mt-4 grid gap-3 text-sm"><Link href="/creator">Creator</Link><Link href="/auth">Sign in</Link><a href="https://github.com/LaLia63" target="_blank" rel="noreferrer">GitHub</a></div></div><div><p className="text-xs font-black uppercase tracking-widest text-[#A53860]">Start</p><div className="mt-4 grid gap-3 text-sm"><Link href="/auth">Create profile</Link><a href="#how-it-works">How it works</a></div></div></div><div className="mx-auto mt-10 flex max-w-7xl flex-col gap-2 border-t pt-6 text-xs text-muted-foreground sm:flex-row sm:justify-between"><span>© 2026 Creto. All rights reserved.</span><span>Made with care by Hsu Yati Zaw.</span></div></footer>
     </main>
   );
 }
