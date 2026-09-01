@@ -36,13 +36,13 @@ export default async function HomePage() {
           <div className="hero-grid absolute inset-0" />
         </div>
 
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)]">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,.85fr)]">
           <div className="min-w-0 max-w-3xl">
             <div className="eyebrow mb-7 w-fit">
               <Sparkle weight="fill" />
               Your identity, beautifully connected (သင့်ရဲ့ digital identity ကို လှပစွာ ချိတ်ဆက်ပါ)
             </div>
-            <h1 className="display-title text-balance text-[clamp(3.4rem,8vw,7.4rem)]">
+            <h1 className="display-title text-balance text-[clamp(3.2rem,7vw,6.7rem)]">
               Everything You Are,
               <span className="block text-gradient">
                 <TypingText text="All in One Place." />
@@ -52,7 +52,7 @@ export default async function HomePage() {
               Create a personalized digital space where your links, social profiles, content, projects, and personal brand come together beautifully in one simple, powerful, and shareable profile.
               <span className="mt-2 block text-sm opacity-80">(သင့် link၊ social profile၊ project နဲ့ personal brand အားလုံးကို အလွယ်တကူ share နိုင်တဲ့ profile တစ်ခုထဲ စုစည်းပါ)</span>
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="hero-actions mt-10 flex flex-col gap-3 sm:flex-row">
               <Link className="button-primary group" href="/auth">
                 Create Your Link Page <span className="opacity-80">(ကိုယ်ပိုင် Page ဖန်တီးရန်)</span>
                 <ArrowRight className="transition-transform group-hover:translate-x-1" />
@@ -70,7 +70,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full min-w-0 max-w-[560px] lg:mr-0 lg:w-[560px]">
+          <div className="relative mx-auto w-full min-w-0 max-w-[500px] lg:mr-0 lg:w-[500px] lg:scale-[.94]">
             <div className="mock-browser">
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                 <div className="flex gap-1.5" aria-hidden="true"><i /><i /><i /></div>

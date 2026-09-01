@@ -84,6 +84,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .button-primary:hover,.button-secondary:hover { transform:translateY(-2px); }
 .button-primary:hover { box-shadow:0 16px 40px rgba(103,13,47,.30); }
 .button-secondary { border:1px solid var(--border); background:color-mix(in srgb,var(--card),transparent 18%); color:var(--foreground); }
+.hero-actions .button-primary,.hero-actions .button-secondary { min-height:3rem; flex-shrink:0; padding:.7rem .9rem; font-size:.7rem; white-space:nowrap; }
 .display-title { font-family:var(--font-cormorant),serif; font-weight:700; letter-spacing:-.055em; line-height:.82; }
 .text-gradient { background:linear-gradient(90deg,#670D2F,#A53860 55%,#EF88AD); -webkit-background-clip:text; color:transparent; padding-bottom:.1em; }
 .dark .text-gradient { background:linear-gradient(90deg,#EF88AD,#fff3f7 55%,#A53860); -webkit-background-clip:text; }
