@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Moon, Sun } from '@phosphor-icons/react';
+import { HouseIcon, MoonIcon, PlusCircleIcon, SunIcon, UserCircleIcon } from '@phosphor-icons/react';
 import { useSyncExternalStore } from 'react';
 
 const themeChangeEvent = 'creto-theme-change';
@@ -35,8 +35,9 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 px-3 sm:top-6 sm:px-6">
-      <nav className="nav-shell mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-2.5 sm:px-4" aria-label="Primary navigation">
+    <>
+      <header className="fixed inset-x-0 top-4 z-50 px-3 sm:top-6 sm:px-6">
+        <nav className="nav-shell mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-2.5 sm:px-4" aria-label="Primary navigation">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <span className="grid size-10 place-items-center overflow-hidden rounded-full bg-[#3A0519] shadow-sm">
             <Image src="/logo-circle.png" alt="Creto logo" width={38} height={38} className="h-9 w-9 rounded-full object-contain" />
@@ -49,13 +50,28 @@ export function SiteHeader() {
         </div>
         <div className="flex items-center gap-2">
           <button onClick={toggleTheme} aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'} className="icon-button">
-            {dark ? <Sun weight="fill" /> : <Moon weight="fill" />}
+            {dark ? <SunIcon weight="fill" /> : <MoonIcon weight="fill" />}
           </button>
           <Link href="/auth" className="button-primary hidden min-h-10 px-4 py-2.5 text-sm sm:inline-flex">
             Create Now <span className="hidden lg:inline">(ယခုဖန်တီးရန်)</span>
           </Link>
         </div>
+        </nav>
+      </header>
+      <nav className="mobile-tabbar md:hidden" aria-label="Mobile navigation">
+        <Link className={`mobile-tab ${homeActive ? 'mobile-tab-active' : ''}`} href="/" aria-current={homeActive ? 'page' : undefined}>
+          <HouseIcon weight={homeActive ? 'fill' : 'regular'} />
+          <span>Home</span>
+        </Link>
+        <Link className={`mobile-tab ${creatorActive ? 'mobile-tab-active' : ''}`} href="/creator" aria-current={creatorActive ? 'page' : undefined}>
+          <UserCircleIcon weight={creatorActive ? 'fill' : 'regular'} />
+          <span>Creator</span>
+        </Link>
+        <Link className="mobile-tab mobile-tab-create" href="/auth">
+          <PlusCircleIcon weight="fill" />
+          <span>Create</span>
+        </Link>
       </nav>
-    </header>
+    </>
   );
 }

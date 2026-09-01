@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircle, Eye, EyeSlash, SpinnerGap } from '@phosphor-icons/react';
+import { CheckCircleIcon, EyeIcon, EyeSlashIcon, SpinnerGapIcon } from '@phosphor-icons/react';
 import { z } from 'zod';
-import { createClient } from '@/lib/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
@@ -21,7 +20,7 @@ export function AuthPanel() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  async function submit(event: React.FormEvent<HTMLFormElement>) {
+  async function submit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     setError('');
     setSuccess('');
@@ -33,25 +32,27 @@ export function AuthPanel() {
     }
 
     setLoading(true);
-    const supabase = createClient();
-    const result = mode === 'signup'
-      ? await supabase.auth.signUp({ email: parsed.data.email, password: parsed.data.password })
-      : await supabase.auth.signInWithPassword(parsed.data);
-    setLoading(false);
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode, ...parsed.data }),
+      });
+      const result = await response.json() as { ok?: boolean; error?: string };
 
-    if (result.error) {
-      setError(result.error.message);
-      return;
+      if (!response.ok || !result.ok) {
+        setError(result.error || 'Unable to continue. Please try again.');
+        return;
+      }
+
+      setSuccess(mode === 'signup' ? 'Your account is ready. Opening your studio…' : 'Welcome back. Opening your studio…');
+      router.push('/app');
+      router.refresh();
+    } catch {
+      setError('Unable to reach the account service. Please check your connection and try again.');
+    } finally {
+      setLoading(false);
     }
-
-    if (mode === 'signup' && !result.data.session) {
-      setSuccess('Account created. Check your email to confirm, then sign in. (Account ဖန်တီးပြီးပါပြီ။ Email ကိုအတည်ပြုပြီး Sign in ဝင်ပါ)');
-      return;
-    }
-
-    setSuccess(mode === 'signup' ? 'Your account is ready. Opening your studio…' : 'Welcome back. Opening your studio…');
-    router.push('/app');
-    router.refresh();
   }
 
   return (
@@ -68,13 +69,13 @@ export function AuthPanel() {
         <div className="space-y-2"><Label htmlFor="email">Email (အီးမေးလ်)</Label><Input id="email" name="email" type="email" autoComplete="email" placeholder="you@example.com" className="h-12 rounded-xl bg-card px-4" required /></div>
         <div className="space-y-2">
           <Label htmlFor="password">Password (စကားဝှက်)</Label>
-          <div className="relative"><Input id="password" name="password" type={showPassword ? 'text' : 'password'} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} placeholder="Minimum 8 characters" className="h-12 rounded-xl bg-card px-4 pr-12" required /><button type="button" onClick={() => setShowPassword((value) => !value)} className="absolute right-1.5 top-1.5 grid size-9 place-items-center rounded-lg text-muted-foreground" aria-label={showPassword ? 'Hide password' : 'Show password'}>{showPassword ? <EyeSlash /> : <Eye />}</button></div>
+          <div className="relative"><Input id="password" name="password" type={showPassword ? 'text' : 'password'} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} placeholder="Minimum 8 characters" className="h-12 rounded-xl bg-card px-4 pr-12" required /><button type="button" onClick={() => setShowPassword((value) => !value)} className="absolute right-1.5 top-1.5 grid size-9 place-items-center rounded-lg text-muted-foreground" aria-label={showPassword ? 'Hide password' : 'Show password'}>{showPassword ? <EyeSlashIcon /> : <EyeIcon />}</button></div>
         </div>
         {error && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
-        {success && <p role="status" className="flex gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800"><CheckCircle className="mt-0.5 shrink-0" weight="fill" /> {success}</p>}
-        <button disabled={loading} className="button-primary min-h-13 w-full disabled:cursor-not-allowed disabled:opacity-60">{loading && <SpinnerGap className="animate-spin" />} {loading ? 'Please wait…' : mode === 'signup' ? 'Create account (အကောင့်ဖွင့်မည်)' : 'Login (ဝင်ရောက်မည်)'}</button>
+        {success && <output className="flex gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800"><CheckCircleIcon className="mt-0.5 shrink-0" weight="fill" /> {success}</output>}
+        <button disabled={loading} className="button-primary min-h-13 w-full disabled:cursor-not-allowed disabled:opacity-60">{loading && <SpinnerGapIcon className="animate-spin" />} {loading ? 'Please wait…' : mode === 'signup' ? 'Create account (အကောင့်ဖွင့်မည်)' : 'Login (ဝင်ရောက်မည်)'}</button>
       </form>
-      <p className="mt-6 text-center text-xs leading-5 text-muted-foreground">By continuing, you agree to keep Creto kind, truthful, and useful. (Creto ကို ကောင်းမွန်၊ မှန်ကန်ပြီး အကျိုးရှိစွာ အသုံးပြုရန် သဘောတူပါသည်)</p>
+      <p className="mt-6 text-center text-xs leading-5 text-muted-foreground">No email verification is required. Any correctly formatted email address can be used. (Email အတည်ပြုရန်မလိုပါ။ ပုံစံမှန်သော email ကိုအသုံးပြုနိုင်ပါသည်)</p>
     </div>
   );
 }
