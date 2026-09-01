@@ -19,6 +19,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { SiteHeader } from '@/components/site-header';
 import { ProductDemoLoader } from '@/components/product-demo-loader';
+import { TypingText } from '@/components/typing-text';
 
 export default function HomePage() {
   return (
@@ -40,7 +41,7 @@ export default function HomePage() {
             <h1 className="display-title text-balance text-[clamp(3.4rem,8vw,7.4rem)]">
               Everything You Are,
               <span className="block text-gradient">
-                <span className="typing-line">All in One Place.</span>
+                <TypingText text="All in One Place." />
               </span>
             </h1>
             <p className="mt-8 max-w-2xl text-pretty text-base leading-8 text-muted-foreground sm:text-lg">

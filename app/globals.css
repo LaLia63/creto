@@ -87,9 +87,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .display-title { font-family:var(--font-cormorant),serif; font-weight:700; letter-spacing:-.055em; line-height:.82; }
 .text-gradient { background:linear-gradient(90deg,#670D2F,#A53860 55%,#EF88AD); -webkit-background-clip:text; color:transparent; padding-bottom:.1em; }
 .dark .text-gradient { background:linear-gradient(90deg,#EF88AD,#fff3f7 55%,#A53860); -webkit-background-clip:text; }
-.typing-line { display:inline-block; overflow:hidden; white-space:nowrap; width:0; max-width:17ch; border-right:2px solid #A53860; animation:typing-loop 7s steps(17,end) .35s infinite,caret .8s step-end infinite; }
-@keyframes typing-loop { 0%,10% { width:0; } 42%,68% { width:17ch; } 94%,100% { width:0; } }
-@keyframes caret { 50% { border-color:transparent; } }
+.typing-text { display:inline-block; min-height:1em; white-space:nowrap; }
+.typing-cursor { display:inline-block; color:#A53860; animation:typing-cursor-pulse 2s cubic-bezier(.4,0,.6,1) infinite; }
+@keyframes typing-cursor-pulse { 50% { opacity:.5; } }
 .eyebrow,.section-kicker { display:flex; align-items:center; gap:.45rem; border:1px solid #A5386030; border-radius:999px; background:#EF88AD18; padding:.48rem .72rem; color:#A53860; font-size:.7rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
 .section-kicker { width:max-content; }
 .section-title { margin-top:1rem; font-family:var(--font-cormorant),serif; font-size:clamp(2.8rem,6vw,5.8rem); font-weight:700; letter-spacing:-.045em; line-height:.9; }
@@ -149,5 +149,5 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .review-card b { font-size:.75rem; }.review-card span { margin-top:.2rem; color:var(--muted-foreground); font-size:.65rem; }
 @keyframes review-scroll { to { transform:translateX(calc(-50% - .5rem)); } }
 
-@media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } .typing-line { width:100%; border:0; } }
-@media (max-width:640px) { .typing-line { white-space:normal; animation:none; width:auto; border:0; } .mock-browser { transform:none; } }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+@media (max-width:640px) { .typing-text { white-space:normal; } .mock-browser { transform:none; } }
