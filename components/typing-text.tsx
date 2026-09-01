@@ -40,9 +40,11 @@ export function TypingText({ text }: { text: string }) {
   }, [deleting, displayedText, text]);
 
   return (
-    <span className="typing-text" aria-label={text}>
-      <span aria-hidden="true">{displayedText}</span>{' '}
-      <span className="typing-cursor" aria-hidden="true">|</span>
+    <span className="typing-text" data-text={text} aria-label={text}>
+      <span className="typing-text-current" aria-hidden="true">
+        {displayedText}{' '}
+        <span className="typing-cursor">|</span>
+      </span>
     </span>
   );
 }

@@ -20,8 +20,12 @@ import {
 import { SiteHeader } from '@/components/site-header';
 import { ProductDemoLoader } from '@/components/product-demo-loader';
 import { TypingText } from '@/components/typing-text';
+import { getApprovedReviews } from '@/lib/reviews';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const reviews = await getApprovedReviews();
+  const reviewLoop = [...reviews, ...reviews];
+
   return (
     <main className="min-h-screen overflow-hidden">
       <SiteHeader />
@@ -32,8 +36,8 @@ export default function HomePage() {
           <div className="hero-grid absolute inset-0" />
         </div>
 
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_.95fr]">
-          <div className="max-w-3xl">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)]">
+          <div className="min-w-0 max-w-3xl">
             <div className="eyebrow mb-7 w-fit">
               <Sparkle weight="fill" />
               Your identity, beautifully connected (သင့်ရဲ့ digital identity ကို လှပစွာ ချိတ်ဆက်ပါ)
@@ -66,7 +70,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[560px] lg:mr-0">
+          <div className="relative mx-auto w-full min-w-0 max-w-[560px] lg:mr-0 lg:w-[560px]">
             <div className="mock-browser">
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                 <div className="flex gap-1.5" aria-hidden="true"><i /><i /><i /></div>
@@ -133,15 +137,22 @@ export default function HomePage() {
       </section>
 
       <section className="overflow-hidden px-5 py-28 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="section-kicker">Real connections (တကယ့်ချိတ်ဆက်မှုများ)</p><h2 className="section-title max-w-3xl">Small link. Big first impression.</h2></div><div className="flex gap-1 text-[#A53860]">{Array.from({length:5}).map((_,i)=><Star key={i} weight="fill" />)}</div></div></div>
-        <div className="review-marquee mt-12"><div>{[
-          ['Maya Bennett','Creative Director','“Creto made my introductions feel intentional. People leave a meeting with my work, not just my name.”'],
-          ['Noah Kim','Product Designer','“The live preview is brilliant. I shaped the page and saw the whole story come together instantly.”'],
-          ['Ari Thompson','Independent Developer','“One QR on my conference badge replaced three separate links and a lot of awkward explaining.”'],
-          ['Sofia Lin','Brand Strategist','“Professional, personal, and refreshingly simple. It feels like a tiny website that actually sounds like me.”'],
-          ['Maya Bennett','Creative Director','“Creto made my introductions feel intentional. People leave a meeting with my work, not just my name.”'],
-          ['Noah Kim','Product Designer','“The live preview is brilliant. I shaped the page and saw the whole story come together instantly.”'],
-        ].map(([name,role,quote],index)=><article key={`${name}-${index}`} className="review-card"><Quotes size={28} weight="fill" className="text-[#EF88AD]" /><p>{quote}</p><div><b>{name}</b><span>{role}</span></div></article>)}</div></div>
+        <div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="section-kicker">Real connections (တကယ့်ချိတ်ဆက်မှုများ)</p><h2 className="section-title max-w-3xl">Real words from Creto members.</h2></div><p className="text-sm font-bold text-[#A53860]">Approved community reviews</p></div></div>
+        {reviews.length > 0 ? (
+          <div className="review-marquee mt-12" aria-label="Approved Creto user reviews">
+            <div className="review-marquee-track">
+              {reviewLoop.map((review, index) => (
+                <article key={`${review.id}-${index}`} className="review-card" aria-hidden={index >= reviews.length ? true : undefined}>
+                  <div className="flex items-center justify-between text-[#EF88AD]"><Quotes size={28} weight="fill" /><span className="flex gap-1">{Array.from({ length: review.rating }).map((_, star) => <Star key={star} size={14} weight="fill" />)}</span></div>
+                  <p>“{review.body}”</p>
+                  <div className="review-author"><b>{review.name}</b><span className="line-clamp-1">{review.role}</span></div>
+                </article>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="review-empty mx-auto mt-12 max-w-2xl">Approved user reviews will appear here as soon as the Creto community shares them.</div>
+        )}
       </section>
 
       <section className="px-5 pb-28 sm:px-8 lg:px-12"><div className="mx-auto max-w-7xl overflow-hidden rounded-[2.8rem] bg-gradient-to-br from-[#3A0519] via-[#670D2F] to-[#A53860] px-6 py-20 text-center text-white shadow-[0_40px_120px_rgba(58,5,25,.25)] sm:px-12"><PaperPlaneTilt className="mx-auto text-[#EF88AD]" size={38} weight="duotone" /><h2 className="mx-auto mt-6 max-w-4xl font-serif text-[clamp(3.5rem,8vw,7.5rem)] font-bold leading-[.82] tracking-[-.05em]">Create Your Link Page Now.</h2><p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/65">Bring your work, identity, and ways to connect into one unforgettable place. (သင့်အလုပ်၊ ကိုယ်ပိုင် identity နဲ့ ဆက်သွယ်ရန်နည်းလမ်းတွေကို မှတ်မိလွယ်တဲ့ နေရာတစ်ခုထဲ စုစည်းပါ)</p><Link href="/auth" className="mt-8 inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#EF88AD] px-6 text-sm font-black text-[#3A0519] transition hover:-translate-y-1">Create your profile <ArrowUpRight /></Link></div></section>
