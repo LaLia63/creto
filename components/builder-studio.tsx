@@ -78,27 +78,34 @@ export function BuilderStudio({ userId, email }: { userId: string; email: string
   const [passwordStatus, setPasswordStatus] = useState('');
 
   const load = useCallback(async () => {
-    const supabase = createClient();
-    const { data } = await supabase.from('creto_profiles').select('*').eq('user_id', userId).maybeSingle();
-    if (data) {
-      const loaded = data as CretoProfile;
-      setProfile(loaded);
-      const [{ data: socialData }, { data: viewData }] = await Promise.all([
-        supabase.from('creto_social_links').select('*').eq('profile_id', loaded.id!).order('position'),
-        supabase.from('creto_page_views').select('viewed_at').eq('profile_id', loaded.id!).order('viewed_at', { ascending: false }),
-      ]);
-      setLinks((socialData || []) as SocialLink[]);
-      setViews((viewData || []) as ViewRow[]);
-      if (loaded.published) {
-        const origin = window.location.origin;
-        const url = `${origin}/u/${loaded.slug}`;
-        setPublicUrl(url);
-        setQrDataUrl(await QRCode.toDataURL(url, { width: 320, margin: 2, color: { dark: '#3A0519', light: '#fffafc' } }));
+    try {
+      const response = await fetch('/api/studio');
+      const result = await response.json() as {
+        profile?: CretoProfile | null;
+        links?: SocialLink[];
+        views?: ViewRow[];
+        error?: string;
+      };
+      if (!response.ok) throw new Error(result.error || 'Could not load your profile.');
+      if (result.profile) {
+        const loaded = result.profile;
+        setProfile(loaded);
+        setLinks(result.links ?? []);
+        setViews(result.views ?? []);
+        if (loaded.published) {
+          const origin = window.location.origin;
+          const url = `${origin}/u/${loaded.slug}`;
+          setPublicUrl(url);
+          setQrDataUrl(await QRCode.toDataURL(url, { width: 320, margin: 2, color: { dark: '#3A0519', light: '#fffafc' } }));
+        }
       }
+    } catch (loadError) {
+      setError(loadError instanceof Error ? loadError.message : 'Could not load your profile.');
+    } finally {
+      setDark(document.documentElement.classList.contains('dark'));
+      setLoading(false);
     }
-    setDark(document.documentElement.classList.contains('dark'));
-    setLoading(false);
-  }, [userId]);
+  }, []);
 
   useEffect(() => { void load(); }, [load]);
 
@@ -173,32 +180,37 @@ export function BuilderStudio({ userId, email }: { userId: string; email: string
     if (!profile.name.trim()) { setError('Add your name before saving. (မသိမ်းခင် အမည်ထည့်ပါ)'); return; }
     if (invalidLinks.length || links.some((link) => !link.url)) { setError('Every social link needs a valid http:// or https:// URL. (Social link တိုင်းမှာ မှန်ကန်တဲ့ URL ထည့်ပါ)'); return; }
     setSaving(true);
-    const supabase = createClient();
     const payload = {
-      user_id: userId,
       slug: profile.published ? profile.slug : cleanSlug(profile.slug || profile.name) || 'creator',
       name: profile.name.trim(), bio: profile.bio.trim(), email: profile.email.trim(), phone: profile.phone.trim(),
       avatar_data_url: profile.avatar_data_url, card_style: profile.card_style, theme_mode: dark ? 'dark' : 'light',
       published: generate || Boolean(profile.published),
     };
-    const { data: saved, error: profileError } = await supabase.from('creto_profiles').upsert(payload, { onConflict: 'user_id' }).select().single();
-    if (profileError || !saved) { setSaving(false); setError(profileError?.message || 'Could not save your profile.'); return; }
+    try {
+      const response = await fetch('/api/studio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          generate,
+          profile: payload,
+          links: links.map((link) => ({ platform: link.platform, url: link.url.trim() })),
+        }),
+      });
+      const result = await response.json() as { profile?: CretoProfile; error?: string };
+      if (!response.ok || !result.profile) throw new Error(result.error || 'Could not save your profile.');
 
-    const { error: deleteError } = await supabase.from('creto_social_links').delete().eq('profile_id', saved.id);
-    if (deleteError) { setSaving(false); setError(deleteError.message); return; }
-    if (links.length) {
-      const { error: linksError } = await supabase.from('creto_social_links').insert(links.map((link, position) => ({ profile_id: saved.id, platform: link.platform, url: link.url.trim(), position })));
-      if (linksError) { setSaving(false); setError(linksError.message); return; }
-    }
-
-    const nextProfile = saved as CretoProfile;
-    setProfile(nextProfile);
-    setSaving(false);
-    setMessage(generate ? 'Your profile is live! (သင့် profile ကို စတင်မျှဝေနိုင်ပါပြီ)' : 'Draft saved. (မူကြမ်း သိမ်းပြီးပါပြီ)');
-    if (generate) {
-      const url = `${window.location.origin}/u/${nextProfile.slug}`;
-      setPublicUrl(url);
-      setQrDataUrl(await QRCode.toDataURL(url, { width: 320, margin: 2, color: { dark: '#3A0519', light: '#fffafc' } }));
+      const nextProfile = result.profile;
+      setProfile(nextProfile);
+      setMessage(generate ? 'Your profile is live! (သင့် profile ကို စတင်မျှဝေနိုင်ပါပြီ)' : 'Draft saved. (မူကြမ်း သိမ်းပြီးပါပြီ)');
+      if (generate) {
+        const url = `${window.location.origin}/u/${nextProfile.slug}`;
+        setPublicUrl(url);
+        setQrDataUrl(await QRCode.toDataURL(url, { width: 320, margin: 2, color: { dark: '#3A0519', light: '#fffafc' } }));
+      }
+    } catch (saveError) {
+      setError(saveError instanceof Error ? saveError.message : 'Could not save your profile.');
+    } finally {
+      setSaving(false);
     }
   }
 
