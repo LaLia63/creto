@@ -41,10 +41,21 @@ export async function POST(request: Request) {
       if (currentPassword === nextPassword) {
         return Response.json({ error: 'Choose a new password that is different from your current password.' }, { status: 400 });
       }
+      if (!user.email) {
+        return Response.json({ error: 'This account does not have an email address for password verification.' }, { status: 400 });
+      }
+
+      const { error: passwordCheckError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: currentPassword,
+      });
+      if (passwordCheckError) {
+        console.warn('[account] current password rejected', { status: passwordCheckError.status });
+        return Response.json({ error: 'Current password is not correct. (လက်ရှိစကားဝှက် မမှန်ပါ)' }, { status: 400 });
+      }
 
       const { error } = await supabase.auth.updateUser({
         password: nextPassword,
-        current_password: currentPassword,
       });
       if (error) {
         console.warn('[account] password update rejected', { status: error.status });
