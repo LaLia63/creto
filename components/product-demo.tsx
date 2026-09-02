@@ -2,7 +2,7 @@
 
 import { Player } from '@remotion/player';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { Check, CursorClick, QrCode, Sparkle, UserPlus } from '@phosphor-icons/react';
+import { CheckIcon as Check, CursorClickIcon as CursorClick, QrCodeIcon as QrCode, SparkleIcon as Sparkle, UserPlusIcon as UserPlus } from '@phosphor-icons/react';
 
 function ProductDemoComposition() {
   const frame = useCurrentFrame();

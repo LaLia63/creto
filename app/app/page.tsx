@@ -6,5 +6,5 @@ export default async function StudioPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/auth');
-  return <BuilderStudio userId={user.id} email={user.email || ''} />;
+  return <BuilderStudio email={user.email || ''} />;
 }

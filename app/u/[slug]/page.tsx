@@ -3,7 +3,7 @@ import { cache } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ShareNetwork } from '@phosphor-icons/react/dist/ssr';
+import { ArrowLeftIcon as ArrowLeft, ShareNetworkIcon as ShareNetwork } from '@phosphor-icons/react/dist/ssr';
 import { CardPreview } from '@/components/card-preview';
 import { ViewTracker } from '@/components/view-tracker';
 import { createClient } from '@/lib/supabase/server';

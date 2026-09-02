@@ -1,21 +1,21 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  ArrowRight,
-  ArrowUpRight,
-  Briefcase,
-  ChartLineUp,
-  CheckCircle,
-  GithubLogo,
-  InstagramLogo,
-  LinkedinLogo,
-  PaintBrushBroad,
-  PaperPlaneTilt,
-  Play,
-  Quotes,
-  QrCode,
-  Sparkle,
-  Star,
+  ArrowRightIcon as ArrowRight,
+  ArrowUpRightIcon as ArrowUpRight,
+  BriefcaseIcon as Briefcase,
+  ChartLineUpIcon as ChartLineUp,
+  CheckCircleIcon as CheckCircle,
+  GithubLogoIcon as GithubLogo,
+  InstagramLogoIcon as InstagramLogo,
+  LinkedinLogoIcon as LinkedinLogo,
+  PaintBrushBroadIcon as PaintBrushBroad,
+  PaperPlaneTiltIcon as PaperPlaneTilt,
+  PlayIcon as Play,
+  QuotesIcon as Quotes,
+  QrCodeIcon as QrCode,
+  SparkleIcon as Sparkle,
+  StarIcon as Star,
 } from '@phosphor-icons/react/dist/ssr';
 import { SiteHeader } from '@/components/site-header';
 import { ProductDemoLoader } from '@/components/product-demo-loader';

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Code, EnvelopeSimple, GithubLogo, PaperPlaneTilt, Sparkle } from '@phosphor-icons/react/dist/ssr';
+import { ArrowRightIcon as ArrowRight, CodeIcon as Code, EnvelopeSimpleIcon as EnvelopeSimple, GithubLogoIcon as GithubLogo, PaperPlaneTiltIcon as PaperPlaneTilt, SparkleIcon as Sparkle } from '@phosphor-icons/react/dist/ssr';
 import { SiteHeader } from '@/components/site-header';
 
 export const metadata: Metadata = { title: 'Creator — Hsu Yati Zaw', description: 'Meet Hsu Yati Zaw (Lia), the creator and developer behind Creto.' };

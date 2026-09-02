@@ -1,14 +1,15 @@
 import type { ComponentType } from 'react';
+import Image from 'next/image';
 import {
-  EnvelopeSimple,
-  FacebookLogo,
-  GithubLogo,
-  GlobeSimple,
-  InstagramLogo,
-  LinkedinLogo,
-  PaperPlaneTilt,
-  Phone,
-  TiktokLogo,
+  EnvelopeSimpleIcon as EnvelopeSimple,
+  FacebookLogoIcon as FacebookLogo,
+  GithubLogoIcon as GithubLogo,
+  GlobeSimpleIcon as GlobeSimple,
+  InstagramLogoIcon as InstagramLogo,
+  LinkedinLogoIcon as LinkedinLogo,
+  PaperPlaneTiltIcon as PaperPlaneTilt,
+  PhoneIcon as Phone,
+  TiktokLogoIcon as TiktokLogo,
 } from '@phosphor-icons/react/dist/ssr';
 import type { CardStyle, CretoProfile, SocialLink, SocialPlatform } from '@/lib/creto';
 
@@ -83,8 +84,8 @@ export function CardPreview({ profile, links, compact = false, interactive = fal
       <Artwork style={profile.card_style} />
       <div className={`relative z-10 flex w-full flex-col ${left ? 'items-start text-left' : 'items-center text-center'} ${compact ? 'p-7 pt-12' : 'p-9 pt-16'}`}>
         {profile.card_style === 'developer' && <p className="mb-6 text-xs" style={{ color: look.accent }}>~/creto/profile $</p>}
-        <div className={`${compact ? 'size-24' : 'size-32'} overflow-hidden border-4 shadow-xl`} style={{ borderRadius: look.avatar, borderColor: look.accent, background: `${look.accent}32` }}>
-          {profile.avatar_data_url ? <img src={profile.avatar_data_url} alt={profile.name || 'Profile'} className="h-full w-full object-cover" /> : <div className="grid h-full w-full place-items-center text-3xl font-bold" style={{ color: look.accent }}>{(profile.name || 'Y').slice(0,1).toUpperCase()}</div>}
+        <div className={`${compact ? 'size-24' : 'size-32'} relative overflow-hidden border-4 shadow-xl`} style={{ borderRadius: look.avatar, borderColor: look.accent, background: `${look.accent}32` }}>
+          {profile.avatar_data_url ? <Image src={profile.avatar_data_url} alt={profile.name || 'Profile'} fill unoptimized className="object-cover" /> : <div className="grid h-full w-full place-items-center text-3xl font-bold" style={{ color: look.accent }}>{(profile.name || 'Y').slice(0,1).toUpperCase()}</div>}
         </div>
         <div className={left ? 'w-full' : 'w-full max-w-sm'}>
           <p className="mt-7 text-[10px] font-extrabold uppercase tracking-[.22em]" style={{ color: look.accent }}>Digital profile · Creto</p>

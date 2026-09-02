@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, QrCode, Sparkle } from '@phosphor-icons/react/dist/ssr';
+import { ArrowLeftIcon as ArrowLeft, QrCodeIcon as QrCode, SparkleIcon as Sparkle } from '@phosphor-icons/react/dist/ssr';
 import { AuthPanel } from '@/components/auth-panel';
 
 export const metadata: Metadata = { title: 'Sign in or create an account' };
